@@ -12,23 +12,19 @@ class App extends Component {
     this.state = {
       robots: [],
       searchfield: '',
-      bgcolor1: '#8da0a0',
-      bgcolor2: '#071B52'
-
+      bgcolor1: '#071B52',
+      bgcolor2: '#008080'
     }
   }
 
   componentDidMount() {
-
     fetch('https://jsonplaceholder.typicode.com/users')
       .then(response => response.json())
       .then(users => { this.setState({ robots: users }) });
   }
-  componentDidUpdate() {
-    let colorChange = `linear-gradient(to right, ${this.state.bgcolor1}, ${this.state.bgcolor2}`
-
-    document.body.style.background = colorChange;
-
+  componentDidUpdate(){
+    let taran=`linear-gradient(to right, ${this.state.bgcolor1}, ${this.state.bgcolor2}`
+    document.body.style.background = taran;
   }
 
   onSearchChange = (event) => {
@@ -36,14 +32,14 @@ class App extends Component {
   }
   onBgChange1 = (event) => {
     this.setState({ bgcolor1: event.target.value })
-
+   
   }
   onBgChange2 = (event) => {
     this.setState({ bgcolor2: event.target.value })
-
+   
   }
   render() {
-    const { robots, searchfield, bgcolor2, bgcolor1 } = this.state;
+    const { robots, searchfield } = this.state;
     const filteredRobots = robots.filter(robot => {
       return robot.name.toLowerCase().includes(searchfield.toLowerCase());
     })
@@ -51,26 +47,21 @@ class App extends Component {
       <h1>Loading</h1> :
       (
         <div className='tc' >
-          <h1 className='f1  hover-navy ' >RoboFriends</h1>
+          <h1 className='f1'>RoboFriends</h1>
           <SearchBox searchChange={this.onSearchChange} />
-          <div className=' tc'>
-            <p className='dib v-mid pokemon awesome f4 ttu tracked-mega mt0 b' >Change Background</p>
-          <input type='color' value={bgcolor1} className='grow pa0 ma2 ' onChange={this.onBgChange1}></input>
-          <input type='color' value={bgcolor2} className='grow pa0 ma2 ' onChange={this.onBgChange2}></input>
-          </div>
           
-          <hr className='style-one'></hr>
-
-          <Scroll >
-
+           <Scroll >
+            <input type='color' value='#00ff00' className='dim ' onChange={this.onBgChange1}></input>
+            <input type='color' value='#ff0000' onChange={this.onBgChange2}></input>
+            <h3 className='tc' ></h3>
             <ErrorBoundary>
-
+            
               <CardList robots={filteredRobots} />
             </ErrorBoundary>
 
           </Scroll>
-
-
+           
+          
         </div>
       );
   }
